@@ -15,5 +15,7 @@ Hotkeys for sway and applications are based on Emacs hotkeys.
   * Super+Ctrl+n Next
   * Super+Ctrl+p Previous
   
-
-  
+## Wofi hotkeys
+  * Ctrl+p up
+  * Ctrl+n Down
+  * Ctrl+g Exit
