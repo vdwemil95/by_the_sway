@@ -4,7 +4,7 @@ My personal desktop setup full of Wayland goodness
 Hotkeys for sway and applications are based on Emacs hotkeys.
 
 ## Requirements
-  * Rofi (Need to switch to wofi for peak Wayland)
+  * Wofi
   * Waybar
   * Mako
   * Alacritty (terminal)
