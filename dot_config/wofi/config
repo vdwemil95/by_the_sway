@@ -1,0 +1,32 @@
+stylesheet=style.css
+
+allow_images=true
+allow_markup=true
+always_parse_args=true
+content_align=center
+display_generic=true
+haligh=center
+hide_scroll=true
+image_size=20px
+insensitive=true
+layer=overlay
+line_wrap=off
+lines=10
+orientation=vertical
+print_command=true
+# prompt=
+show=drun
+show_all=true
+term=alacritty
+valigh=center
+width=100%
+# location=bottom
+xoffset=0px
+
+# My hotkeys
+
+key_down=Control_L-n
+key_up=Control_L-p
+key_exit=Control_L-g
+key_pgdn=Control_L-v
+key_pgup=Alt_L-v

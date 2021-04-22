@@ -1,0 +1,2 @@
+# Compton
+exec_always --no-startup-id "picom -b -c --config ~/.config/picom/config  --blur-background --blur-method kawase --respect-prop-shadow"
