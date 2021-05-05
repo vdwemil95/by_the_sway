@@ -44,11 +44,15 @@
 
 ;; Scans the list in myPackages
 ;; If the package listed is not already installed, install it
+(use-package company-box)
 
  (mapc #'(lambda (package)
           (unless (package-installed-p package)
             (package-install package)))
       myPackages)
+
+;; Global
+(doom-modeline-mode 1)
 
 ;; Icons
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
@@ -147,29 +151,29 @@
  '(jdee-db-spec-breakpoint-face-colors (cons "#000000" "#494949"))
  '(objed-cursor-color "#CC9393")
  '(package-selected-packages
-   '(doom-modeline doom-themes spacemacs-theme vs-dark-theme clang-format helm helm-lsp dap-mode exec-path-from-shell rustic lsp-mode lsp-ui slime irony free-keys counsel-gtags emmet-mode prettier-js add-node-modules-path web-mode rjsx-mode beacon magit rainbow-delimiters company elpy dashboard flyspell-correct-ivy material-theme nov all-the-icons-ivy all-the-icons-dired all-the-icons-gnus all-the-icons-ibuffer all-the-icons-ivy-rich counsel swiper org-journal))
+   '(clippy doom-modeline doom-themes spacemacs-theme vs-dark-theme clang-format helm helm-lsp dap-mode exec-path-from-shell rustic lsp-mode lsp-ui slime irony free-keys counsel-gtags emmet-mode prettier-js add-node-modules-path web-mode rjsx-mode beacon magit rainbow-delimiters company elpy dashboard flyspell-correct-ivy material-theme nov all-the-icons-ivy all-the-icons-dired all-the-icons-gnus all-the-icons-ibuffer all-the-icons-ivy-rich counsel swiper org-journal))
  '(rustic-ansi-faces
    ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCDC"])
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    '((20 . "#f36c60")
-     (40 . "#ff9800")
-     (60 . "#fff59d")
-     (80 . "#8bc34a")
-     (100 . "#81d4fa")
-     (120 . "#4dd0e1")
-     (140 . "#b39ddb")
-     (160 . "#f36c60")
-     (180 . "#ff9800")
-     (200 . "#fff59d")
-     (220 . "#8bc34a")
-     (240 . "#81d4fa")
-     (260 . "#4dd0e1")
-     (280 . "#b39ddb")
-     (300 . "#f36c60")
-     (320 . "#ff9800")
-     (340 . "#fff59d")
-     (360 . "#8bc34a")))
+	 (40 . "#ff9800")
+	 (60 . "#fff59d")
+	 (80 . "#8bc34a")
+	 (100 . "#81d4fa")
+	 (120 . "#4dd0e1")
+	 (140 . "#b39ddb")
+	 (160 . "#f36c60")
+	 (180 . "#ff9800")
+	 (200 . "#fff59d")
+	 (220 . "#8bc34a")
+	 (240 . "#81d4fa")
+	 (260 . "#4dd0e1")
+	 (280 . "#b39ddb")
+	 (300 . "#f36c60")
+	 (320 . "#ff9800")
+	 (340 . "#fff59d")
+	 (360 . "#8bc34a")))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -178,40 +182,18 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 162 :width normal)))))
 
-;; Web dev
-(add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode)) ;; auto-enable for .js/.jsx files
-(setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
-
-(defun web-mode-init-hook ()
-  "Hooks for Web mode.  Adjust indent."
-  (setq web-mode-markup-indent-offset 4))
-  
-(add-hook 'web-mode-hook  'web-mode-init-hook)
-
-(setq-default flycheck-disabled-checkers
-              (append flycheck-disabled-checkers
-                      '(javascript-jshint json-jsonlist)))
-
-;; Enable eslint checker for web-mode
-;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 ;; Enable flycheck globally
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'flycheck-mode-hook 'add-node-modules-path)
 
-(defun web-mode-init-prettier-hook ()
-  (add-node-modules-path)
-  (prettier-js-mode)
-  (js2-minor-mode)
-  )
-
-(add-hook 'web-mode-hook  'web-mode-init-prettier-hook)
-
-(add-hook 'web-mode-hook  'emmet-mode)
-
-
 ;; C IDE config
 (add-hook 'c-mode-hook 'counsel-gtags-mode)
 (add-hook 'c++-mode-hook 'counsel-gtags-mode)
+
+(setq-default c-default-style "linux"
+ c-basic-offset 4
+                  tab-width 4
+                  indent-tabs-mode t)
 
 (with-eval-after-load 'counsel-gtags
   (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
@@ -381,14 +363,22 @@
          :target nil
          :cwd nil)))
 
-(add-hook 'rustic-mode-hook 'company-mode)
-(add-hook 'rustic-mode-hook 'electric-pair-mode)
-(add-hook 'rustic-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'rustic-mode-hook
+		  'company-mode
+		  'electric-pair-mode
+		  'rainbow-delimiters-mode
+		  )
 
-;; With use-package:
-(use-package company-box)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rustic-mode))
 
-(doom-modeline-mode 1)
+;; Perl development setup
+
+(add-to-list 'auto-mode-alist '("\\.pl\\'" . cperl-mode))
+(add-hook 'cperl-mode
+		  'company-mode
+		  'electric-pair-mode
+		  'rainbow-delimiters-mode
+		  )
 
 (provide 'init)
 ;;; init.el ends here
