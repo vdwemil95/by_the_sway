@@ -5,6 +5,7 @@
     "height": 16,
 
     "modules-left": [
+        "custom/separator",		
         "sway/workspaces",
         "sway/mode"
     ],
@@ -20,8 +21,6 @@
         "cpu",
         "custom/separator",
         "temperature",
-        "custom/separator",
-        "custom/keyboard-layout",
         "custom/separator",
         "battery",
         "custom/separator",
@@ -62,7 +61,7 @@
 
     "clock": {
         "interval": 1,
-        "format": " {:%a %Y-%b-%d %H:%M}",
+        "format": "{:%a %Y-%b-%d %H:%M}",
         "tooltip": false
     },
 
@@ -157,18 +156,19 @@
         "format-icons": {
             "1.terminals": "",
             "2.firefox": "",
-            "3.emacs": "",
-            "4.chat": "",
-            "5.office": "",
-            "6.mail": "",
-            "7.movie": "",
-            "8.steam": "",
+            "3.emacs": "",
+            "4.lookup": "",
+            "5.office": "",
+            "8.steam": "",
             "9.spotify": "",
-            "10.arch": "",
-            "urgent": "",
-            "focused": "ﲮ",
+            "10.arch": "",
+            "urgent": "",
+            "focused": "",
             "default": ""
-        }
+        },
+				"persistent_workspaces": {
+				
+}
     },
 
     "pulseaudio": {
@@ -193,6 +193,7 @@
 
     "temperature": {
       "critical-threshold": 80,
+			"hwmon-path": "/sys/class/hwmon/hwmon7/temp1_input",
       "interval": 5,
       "format": "{icon} {temperatureC}°C",
       "format-icons": [

@@ -14,11 +14,11 @@ set $down b
 set $up f
 set $right n
 # Your preferred terminal emulator
-set $term alacritty
+set $term alacritty -e fish
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+# set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 # Your preferred application launcher
 set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
@@ -31,13 +31,13 @@ set $cursor_size 12
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/wallpapers-2018/Manjaro_organic_1920x1080.jpg fill
 # output * bg /home/emil/Wallpapers/wallhaven-dg611j.jpg fill
-font SourceCodePro Medium 14
+font SauceCodePro Nerd Font 16
 
 #
 # Example configuration:
 #
-   output eDP-1 resolution 1920x1080 position 0 0
-   output DP-1 resolution 1920x1080 position 1920 0
+   output eDP-1 resolution 1920x1080 position 1920 0
+   output DP-1 resolution 1920x1080 position 0 0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -159,28 +159,39 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 #
 # Workspaces:
 #
+		set $ws1 "1.terminals"
+		set $ws2 "2.firefox"
+		set $ws3 "3.emacs"
+		set $ws4 "4.lookup"
+		set $ws5 "5.files"
+		set $ws6 "6.mail"
+		set $ws7 "7.office"
+		set $ws8 "8.steam"
+		set $ws9 "9.spotify"
+		set $ws10 "10.arch"
+
     # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
+    bindsym $mod+1 workspace number 1.terminals
+    bindsym $mod+2 workspace number 2.firefox
+    bindsym $mod+3 workspace number 3.emacs
+    bindsym $mod+4 workspace number 4.lookup
+    bindsym $mod+5 workspace number 5.files
+    bindsym $mod+6 workspace number 6.mail
+    bindsym $mod+7 workspace number 7.office
+    bindsym $mod+8 workspace number 8.steam
+    bindsym $mod+9 workspace number 9.spotify
+    bindsym $mod+0 workspace number 10.arch
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
+    bindsym $mod+Shift+1 move container to workspace number 1.terminals
+    bindsym $mod+Shift+2 move container to workspace number 2.firefox
+    bindsym $mod+Shift+3 move container to workspace number 3.emacs
+    bindsym $mod+Shift+4 move container to workspace number 4.lookup
+    bindsym $mod+Shift+5 move container to workspace number 5.files
+    bindsym $mod+Shift+6 move container to workspace number 6.mail
+    bindsym $mod+Shift+7 move container to workspace number 7.office
+    bindsym $mod+Shift+8 move container to workspace number 8.steam
+    bindsym $mod+Shift+9 move container to workspace number 9.spotify
+    bindsym $mod+Shift+0 move container to workspace number 10.arch
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
@@ -306,20 +317,6 @@ exec --no-startup-id mako --default-timeout=10000 --layer=overlay --font 'Hack 1
 
 for_window [class="^.*"] border pixel 2
 
-#
-# Workspaces:
-#
-set $ws1 "1.terminals"
-set $ws2 "2.www"
-set $ws3 "3.emacs"
-set $ws4 "4.chat"
-set $ws5 "5.notes"
-set $ws6 "6.mail"
-set $ws7 "7.movie"
-set $ws8 "8.steam"
-set $ws9 "9.spotify"
-set $ws10 "10.arch"
-
 # # Assign applications to workspaces
 # assign [app_id="firefox"] $ws2
 # for_window [app_id="firefox"] inhibit_idle fullscreen
@@ -327,7 +324,7 @@ for_window [class="Emacs"] move window to workspace $ws3
 # for_window [app_id="Chromium"] inhibit_idle fullscreen
 # for_window [app_id="Google-chrome"] move window to workspace $ws3
 # for_window [app_id="Google-chrome"] inhibit_idle fullscreen
-assign [class="DesktopEditors"] $ws5
+for_window [class="DesktopEditors"] move window to workspace $ws5
 # assign [class="Caprine"] $ws4
 # assign [class="Signal"] $ws4
 # assign [class="discord"] $ws4
@@ -354,4 +351,9 @@ bindsym $mod+Ctrl+n    exec dbus-send --print-reply --dest=org.mpris.MediaPlayer
 # Previous
 bindsym $mod+Ctrl+p    exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
-include /etc/sway/config.d/*
+# Screenshot hotkey
+bindsym $mod+t	exec grim -g "$(slurp)" ~/Pictures/screenshots/screenshot-$(date +%H_%M_%S).png
+
+# Including the other stuff {{{1
+    # include @sysconfdir@/sway/config.d/*
+    # include ~/.config/sway/config.d/*

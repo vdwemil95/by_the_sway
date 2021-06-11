@@ -39,7 +39,7 @@
     background: #323232;
     color: white;
     font-family: Hack;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 /* Each module */
@@ -176,9 +176,9 @@
 #workspaces button {
     border-top: 2px solid transparent;
     background-color: transparent;
-    padding: 0 2px;
+    padding: 2px 2px;
     color: #ffffff;
-    font-size: 32px;
+    font-size: 26px;
 }
 
 #workspaces button.focused {
